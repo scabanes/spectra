@@ -1,0 +1,25 @@
+####################################################################
+# 		   Read, PTS: "Parameters to set"
+####################################################################
+#Field--------------------------------------------------------------	
+sf,vp,T,M,Z:	sf	vp
+NetCDEF		sfvpData-0-0.nc		#Netcedef file for maps and velocity profils.
+Niteration	0			#Iteration for files xspec_it for harmonic coeffs.
+N		360			#Nomber of Gauss coeffs (== lon-lat grid resolution).
+L		1			#Nombre max de l for SH projection.
+M		0			#Nombre max de m for SH projection !! Legendre Poly pb for M>60 (see, fct python).
+it		0 			#Select dans le champ de vitesse le temps.
+iz		0			#Select dans le champ de vitesse la profondeur. !! iz=0 sinon il faut revoir.
+iplt		0			#If iplt=0 or 1; if==0 no plot if==1 plots in SpHarm.py.
+pas		0.005			#Pas en espace utilise dans la projection harmonic spherique.
+####################################################################
+# 		  	PLANETARY PARAMETERS
+####################################################################
+omega_sat	0.000164		# Rotation rate in s-1
+R_sat		58232000		# En m
+Ck		5.			# Constant of ER(n) = Ck epsilon^2/3 n^-5/3 ;  [Ck] = non-dim
+epsilon		0.00000015 		# [epsilon] = m^2/s^3
+Cz		0.5			# Constant of EZ(n) = Cz beta^2 n^-5 ;  [Cz] = non-dim
+H-atm		59000			# Hauteur l'atmosphere de Saturne. [H] = m
+N		0.01			# Frequence typique de Brunt–Väisälä. [N] = s-1
+		
