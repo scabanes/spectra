@@ -1,5 +1,6 @@
 !M. Indurain & E. Millour
 !March 2015
+!Modified by S. Cabanes 2017
 
 PROGRAM spectra_analysis
 
