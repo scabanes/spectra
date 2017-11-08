@@ -7,6 +7,7 @@ from projections on spherical harmonic functions. -
 	executable:		sfvp_t.py	
 				spectra_analysis_scalar_01Oct
 				spectra-zono-01Oct.py
+				spectra-zono-temp-01Oct.py
 
 	functions		getKES.py
 				SpHarm.py
@@ -14,6 +15,7 @@ from projections on spherical harmonic functions. -
 				sf2V.py
 
 	parameters file		filePTS.zono
+				filePTS.zono.temp
 
 # It requires to install the following library:
 	windspharm:	http://ajdawson.github.io/windspharm/
@@ -59,3 +61,11 @@ components.
 # To run "spectra-zono-01Oct.py" one has to set parameters in the
 file "filePTS.zono".
 
+ --> "spectra-zono-temp-01Oct.py"
+
+# From files "xspec_x1_xx" we plot time evolution spectra of the 
+axisymmetric and non-axisymmetric component of the flow and we  
+compute integrated energetic value over the whole layer surface 
+of these two flow  components.
+# To run "spectra-zono-temp-01Oct.py" one has to set parameters in the
+file "filePTS.zono.temp".
