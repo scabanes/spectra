@@ -15,7 +15,14 @@ def KES ( array_BLM, N, R_sat, getField ):
 # E(n)=1/2*(Blm*conj(Blm) + Blm*conj(Blm)) pour m/=0 avec une somme sur
 # les m=-l a m 
 # si j ai une streamfunction psi projetee sur HS alors j applique un facteur
-# CL = l(l+1)/(2*r^2) pcq E = 1/2*V.V ~= psi* Laplacien psi = 1/2*Cl*psi_lm
+# CL = l(l+1)/(2*r^2) pcq (P. Augier et al. 2013):
+# E 	= 1/2 (V.V) 
+#	= 1/2  r^2/l(l+1) Real(rot(u)*rot(u) + div(u)*div(u))
+# avec rot(u) = Laplacian psi and div(u) = Laplacian phi
+# avec psi et phi la fonction courant et le portentel de vitesse et 
+# * le complex conjuge. On a finalement:
+# E	= l(l+1)/2r^2  (psi_lm* psi_lm + phi_lm* phi_lm)
+#
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 #===================================================================
 #		    Kinetic Energy Spectra (KES)
@@ -23,10 +30,8 @@ def KES ( array_BLM, N, R_sat, getField ):
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	n = (np.arange(0.,N,1.))
 	nn = np.transpose(range(0,N)+np.zeros([N-1, N]))
-	Cl = n*(n+1.)/(2.*R_sat**2.) #Boer & Sheperd 1982 on a un facteur 2 en+; il faut comprendre expression (11)
-	CCl = nn*(nn+1.)/(2.*R_sat**2.)#Boer & Sheperd 1982 on a un facteur 2 en+; il faut comprendre expression (11)
-#Boer & Sheperd 1982 on a un facteur 2 en+; il faut comprendre expression (11) Reponse: we just put the stream-function
-# and the vector potential is missing, leading to the additional factor 2.
+	Cl = n*(n+1.)/(2.*R_sat**2.) #see: P. Augier & E. Lindborg 2013 expression (12-13)
+	CCl = nn*(nn+1.)/(2.*R_sat**2.)#see: P. Augier & E. Lindborg 2013 expression (12-13)
 
 # ==> details of the energy variables
 #Eno[l] ac l=0:L pour m=0  ac L=N
