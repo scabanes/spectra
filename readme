@@ -43,7 +43,7 @@ potential.
 on the basis of spherical harmonic functions.
 # This fortran exe has arguments detailed with "-h" argument. however
 the following are commonly used: 
-"spectra_analysis_scalar_01Oct -field x1 -istp x2 -tstp x3 -mt x4"
+"spectra_analysis_scalar_01Oct -field x1 -istp x2 -tstp x3 -mt x4 FILE"
 - x1 : select the field to analyse; x1= 1 (zonal flow) 2 (merid flow) 
 3 (total velocity) 4 (stream-function) 5 (velocity potential)
 - x2 : initial time to compute from "sfvpData--.nc" (default: 0)
