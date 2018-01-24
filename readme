@@ -2,6 +2,29 @@ use ```git clone --recursive``` to get submodules windspharm and pyspharm
 
 -------------------------------------------------------------------------
 
+to install
+
+```
+mkdir $HOME/python_setup 
+cd pyspharm
+python setup.py install --home=$HOME/python_setup
+cd ..
+cd windspharm
+python setup.py install --home=$HOME/python_setup
+cd ..
+```
+
+in your ```.bashrc``` (or else) environment file add
+```
+export PYTHONPATH=$PYTHONPATH:$HOME/python_setup/lib/python/
+export PYTHONPATH=$PYTHONPATH:$HOME/python_setup/lib/python/windspharm-1.6.dev0-py2.7.egg
+```
+
+-------------------------------------------------------------------------
+
+
+
+
 - Statistical analysis of a 2D winds layer. Compute gauss coefficients
 from projections on spherical harmonic functions. -
 
