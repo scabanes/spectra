@@ -1,0 +1,6 @@
+[submodule "windspharm"]
+	path = windspharm
+	url = https://github.com/ajdawson/windspharm.git
+[submodule "pyspharm"]
+	path = pyspharm
+	url = https://github.com/jswhit/pyspharm.git

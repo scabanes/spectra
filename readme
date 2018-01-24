@@ -1,3 +1,7 @@
+use ```git clone --recursive``` to get submodules windspharm and pyspharm
+
+-------------------------------------------------------------------------
+
 - Statistical analysis of a 2D winds layer. Compute gauss coefficients
 from projections on spherical harmonic functions. -
 
