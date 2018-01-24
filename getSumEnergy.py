@@ -4,7 +4,6 @@ import math
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 import scipy.special as sp
-from sympy.functions.elementary.miscellaneous import sqrt
 from pylab import *
 # Here is WindsPharm
 from windspharm.standard import VectorWind #permet de travailler avec la streamfunction. Package a installer

@@ -6,8 +6,6 @@ import numpy as np
 import math
 #from mpl_toolkits.basemap import Basemap
 import scipy.special as sp
-from sympy.functions.elementary.miscellaneous import sqrt
-from sympy.functions.combinatorial.factorials import factorial
 import matplotlib.patches as mpatches
 import matplotlib.font_manager as font_manager
 from pylab import *

@@ -6,7 +6,6 @@ import numpy as np
 import math
 import scipy.special as sp
 import matplotlib.ticker as ticker
-from sympy.functions.elementary.miscellaneous import sqrt
 import matplotlib.patches as mpatches
 from pylab import *
 from decimal import *

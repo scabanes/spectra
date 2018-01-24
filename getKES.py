@@ -3,7 +3,6 @@ from netCDF4 import Dataset as NetCDFFile
 import numpy as np
 import math
 import scipy.special as sp
-from sympy.functions.elementary.miscellaneous import sqrt
 from pylab import *
 ###########################################################################################################################
 #													FUNCTION 1
