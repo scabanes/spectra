@@ -157,6 +157,10 @@ except NameError: AST3 = 0
 try: AST4
 except NameError: AST4 = 0
 
+
+_EZ_ = None
+_ER_ = None
+_ET_ = None
 for itg in range(0, NT):
 		# => first to arrayT1
 	if(itg <= len(arrayT1)-AST1):
@@ -226,11 +230,12 @@ print 'R_beta = ', R_beta
 print '----------------------'
 print '----------------------'
 gamma = (3./4.)*((10.*Cz)**(-5./6.))*R_beta**(10./3.)
-print 'theory & numerics'
-print 'zmf =',gamma/(1.+gamma), '&', _EZ_/_ET_
-print 'theory & numerics'
-print 'nzmf =',1./(1.+gamma), '&', _ER_/_ET_
-print '-----------------------------------------------------------------'
+if _EZ_ is not None:
+  print 'theory & numerics'
+  print 'zmf =',gamma/(1.+gamma), '&', _EZ_/_ET_
+  print 'theory & numerics'
+  print 'nzmf =',1./(1.+gamma), '&', _ER_/_ET_
+  print '-----------------------------------------------------------------'
 print '####################################################################'
 
 ####################################################################
@@ -279,9 +284,9 @@ axA.fill_between(np.arange(n_D,n_D+100,1), 0, 1, facecolor='grey', alpha=0.4, tr
 plt.loglog(n,En[:,2]/((omega_sat*R_sat)**2.), '-', color='black', linewidth=1) # PSD des m/=0
 #
 #plt.loglog(n,_En_[:,0]/((omega_sat*R_sat)**2.), '-', color='black', linewidth=1) # PSD des m/=0
-#plt.loglog(n,_En_[:,1]/((omega_sat*R_sat)**2.), '-', color='black', linewidth=1) # PSD des m/=0
-plt.loglog(n,_En_[:,3]/((omega_sat*R_sat)**2.), '-', color='black', linewidth=1) # PSD des m/=0
-plt.loglog(n,_En_[:,10]/((omega_sat*R_sat)**2.), '-', color='black', linewidth=1) # PSD des m/=0
+plt.loglog(n,_En_[:,1]/((omega_sat*R_sat)**2.), '-', color='black', linewidth=1) # PSD des m/=0
+#plt.loglog(n,_En_[:,3]/((omega_sat*R_sat)**2.), '-', color='black', linewidth=1) # PSD des m/=0
+#plt.loglog(n,_En_[:,10]/((omega_sat*R_sat)**2.), '-', color='black', linewidth=1) # PSD des m/=0
 #plt.loglog(n,_En_[:,20]/((omega_sat*R_sat)**2.), '-', color='black', linewidth=1) # PSD des m/=0
 #plt.loglog(n,_En_[:,30]/((omega_sat*R_sat)**2.), '-', color='black', linewidth=1) # PSD des m/=0
 #plt.loglog(n,_En_[:,40]/((omega_sat*R_sat)**2.), '-', color='black', linewidth=1) # PSD des m/=0
