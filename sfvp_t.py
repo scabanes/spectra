@@ -14,10 +14,18 @@ import sys
 ####################################################################
 # 		    PTS: "Parameters to set"
 ####################################################################
-nc = NetCDFFile('DRAG90days_DISSIP10000_year1-10_uv_z5_512_every200d.nc')# netcdef file to load
+zefile = 'DRAG90days_DISSIP10000_year1-10_uv_z5_512_every200d.nc' # netcdef file to load
 time_range=[1000,1010] # ex: if [0,10] selected [0,9] is finally implemented;
 iz=0 # select a layer on the vertical index iz.
 R_sat = 58.232*10.**(6.) # en m
+
+zefile = '/scratch/cnt0026/lmd7357/aspigaheat/reference/saturn/simu_REF_10days/Xhistins_28.nc'
+#zefile = '/scratch/cnt0026/lmd7357/aspigaheat/reference/saturn/simu_REF_10days_graddiv5000_order1/Xhistins_28.nc'
+zefile = '/store/aspigaheat/dynamico-giant/saturn/simu_REF3_10years/Xhistins_80.nc'
+zefile = '/scratch/cnt0026/lmd7357/aspigaheat/reference/saturn/Xhistins_80.nc'
+zefile = '/scratch/cnt0026/lmd7357/aspigaheat/reference/saturn/simu_REF_10days_graddiv5000_order1/Xhistins_1.nc'
+time_range=[0,50]
+iz=5
 ####################################################################
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -25,6 +33,16 @@ R_sat = 58.232*10.**(6.) # en m
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 ##-----------------
+nc = NetCDFFile(zefile) # load file
+
+# get dimensions from netCDF file
+zedim = nc.dimensions.keys()
+xcoord = zedim[1]
+ycoord = zedim[2]
+zcoord = zedim[3]
+tcoord = zedim[4]
+print tcoord,zcoord,ycoord,xcoord
+
 nbiz=1 # On est pour le moment limite a un seul iz.
 # On forme la martice presniv_AS qui n a qu une seule valeure. 
 # C est pour quelle est une longueure.
@@ -37,9 +55,10 @@ for varname in nc.variables.keys():
 	print varname, var.dtype, var.dimensions, var.shape
 print '----------------------------------------------------------------------------------'
 #
-lat_AS = nc.variables['latitude'][:] #(128,)
-lon_AS = nc.variables['longitude'][:]
-presnivs_AS[nbiz-1] = nc.variables['presnivs'][iz]
+lat_AS = nc.variables[ycoord][:] #(128,)
+lon_AS = nc.variables[xcoord][:]
+presnivs_AS[nbiz-1] = nc.variables[zcoord][iz]
+print nc.variables[zcoord][iz]
 #
 u_AS = nc.variables['u'][time_range[0]:time_range[1],iz,:,:] # [t,Prof,theta,phi] Zonal velocity
 v_AS = nc.variables['v'][time_range[0]:time_range[1],iz,:,:] # [t,Prof,theta,phi] meridional velocity
@@ -49,24 +68,24 @@ v_AS = nc.variables['v'][time_range[0]:time_range[1],iz,:,:] # [t,Prof,theta,phi
 # creer un fichier netcdef --> http://www.ceda.ac.uk/static/media/uploads/ncas-reading-2015/11_create_netcdf_python.pdf
 dataset = NetCDFFile('sfvpData-'+str(time_range[0])+'-'+str(time_range[1]-1)+'.nc', 'w', format='NETCDF3_CLASSIC')
 	#----Dimensions-----------------------------------------------------------------------------
-presnivs = dataset.createDimension('presnivs', len(presnivs_AS))
-presnivss = dataset.createVariable('presnivs', np.float64, ('presnivs',))
+presnivs = dataset.createDimension(zcoord, len(presnivs_AS))
+presnivss = dataset.createVariable(zcoord, np.float64, (zcoord,))
 presnivss[:] = presnivs_AS
 	#
-longitude = dataset.createDimension('longitude', len(lon_AS))
-longitudes = dataset.createVariable('longitude', np.float64, ('longitude',))
+longitude = dataset.createDimension(xcoord, len(lon_AS))
+longitudes = dataset.createVariable(xcoord, np.float64, (xcoord,))
 longitudes[:] = lon_AS
 	#
-latitude = dataset.createDimension('latitude', len(lat_AS))
-latitudes = dataset.createVariable('latitude', np.float64, ('latitude',))
+latitude = dataset.createDimension(ycoord, len(lat_AS))
+latitudes = dataset.createVariable(ycoord, np.float64, (ycoord,))
 latitudes[:] = lat_AS  
 	#
-time_counter = dataset.createDimension('time_counter', None)
+time_counter = dataset.createDimension(tcoord, None)
 	#
-v = dataset.createVariable('v', np.float64, ('time_counter','presnivs','latitude','longitude'))
-u = dataset.createVariable('u', np.float64, ('time_counter','presnivs','latitude','longitude'))
-streamfunction = dataset.createVariable('sf', np.float64, ('time_counter','presnivs','latitude','longitude'))
-velocitypotential = dataset.createVariable('vp', np.float64, ('time_counter','presnivs','latitude','longitude'))
+v = dataset.createVariable('v', np.float64, (tcoord,zcoord,ycoord,xcoord))
+u = dataset.createVariable('u', np.float64, (tcoord,zcoord,ycoord,xcoord))
+streamfunction = dataset.createVariable('sf', np.float64, (tcoord,zcoord,ycoord,xcoord))
+velocitypotential = dataset.createVariable('vp', np.float64, (tcoord,zcoord,ycoord,xcoord))
 	#-----Data-----------------------------------------------------------------------------------
 	# Create a VectorWind instance to handle the computation of streamfunction and
 	# velocity potential.
