@@ -18,8 +18,11 @@ def SumEnergy (nc, array_Ylm_o, array_field, array_f_f, array_f_R, getField , En
 #		    	  Get NetCDEF data
 #===================================================================
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	lat = nc.variables['latitude'][:] #(128,)
-	lon = nc.variables['longitude'][:]
+        zedim = nc.dimensions.keys()
+        xcoord = zedim[1]
+        ycoord = zedim[2]
+	lat = nc.variables[ycoord][:] #(128,)
+	lon = nc.variables[xcoord][:]
 	ulocity = nc.variables['u'][:,:,:,:] # [t?,Prof?,theta,phi] Zonal velocity
 	vlocity = nc.variables['v'][:,:,:,:] # [t?,Prof?,theta,phi] meridional velocity
 	sflocity = nc.variables['sf'][:,:,:,:] # [t?,Prof?,theta,phi] meridional velocity
