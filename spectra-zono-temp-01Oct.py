@@ -245,4 +245,4 @@ print '####################################################################'
 np.savez('const.npz',R_sat=R_sat,beta_sat=beta_sat,n_beta=n_beta,n_R=n_R,n_z=n_z,n_D=n_D,n_long=n_long,omega_sat=omega_sat,Ck=Ck,Cz=Cz)
 np.savez('EE.npz',_En_=_En_,_Eno_=_Eno_,_Emn_=_Emn_,n=n,EZ=EZ,ER=ER,ET=ET)
 
-print '-------- Files: const.npz & EE.npz have been saved => Use now Toplot.py to plot....
+print '-------- Files: const.npz & EE.npz have been saved => Use now Toplot.py to plot....'
