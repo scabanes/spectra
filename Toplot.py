@@ -247,8 +247,10 @@ if perturb:
 
 plt.xlabel('n')
 plt.ylabel('Ek')
-plt.ylim((10**(-16),10**(-5)))
+plt.ylim((10**(-14),10**(-5)))
+plt.xlim(1.,1000.)
 plt.grid()
+plt.legend(loc="best")
 plt.show(figB)
 ####################################################################
 #			Temporal energy evolution
