@@ -12,7 +12,7 @@ from pylab import *
 from decimal import *
 ####################################################################
 perturb = False
-scales = False
+scales = True
 ####################################################################
 # 		    LOAD filePTS ....
 ####################################################################
@@ -214,27 +214,26 @@ plt.show(figA)
 #################################################################################
 figB, axB = plt.subplots()
 trans = mtransforms.blended_transform_factory(axB.transData, axB.transAxes)
+plt.loglog(n[:-1],_Eno_[:-1,-AST4]/((omega_sat*R_sat)**2.), '-', color='darkred', linewidth=2, label="zonal (m=0)") # PSD des m/=0
+plt.loglog(n[:-1],_En_[:-1,-AST4]/((omega_sat*R_sat)**2.), '-', color='black', linewidth=2, label="residual (m>0)") # PSD des m/=0
 # -------------------Theoretical spectra
-plt.loglog(n_long[1:],Ck*((epsilon/((R_sat**2.)*(omega_sat**3.)))**(2./3.))*(n_long[1:]**(-5./3.)), '--', color='black', linewidth=2.5)
-plt.loglog(n_long[1:],Cz*((beta_sat/beta_sat)**2.)*(n_long[1:]**(-5.)), '--', color='darkred', linewidth=2.5)
-plt.loglog(n_long[1:],0.0006*n_long[1:]**(-3.), '--', color='gray', linewidth=2.5)
+plt.loglog(n_long[1:],Cz*((beta_sat/beta_sat)**2.)*(n_long[1:]**(-5.)), '--', color='darkred', linewidth=2.5, label=r'$n^{-5}$')
+plt.loglog(n_long[1:],Ck*((epsilon/((R_sat**2.)*(omega_sat**3.)))**(2./3.))*(n_long[1:]**(-5./3.)), '--', color='black', linewidth=2.5, label=r'$n^{-5/3}$')
+nnn = 50 ; zefit = (n_long[nnn]**(-3.)) / (_En_[nnn,-AST4]/((omega_sat*R_sat)**2.))
+plt.loglog(n_long[1:],n_long[1:]**(-3.)/zefit, '--', color='gray', linewidth=2.5, label=r'$n^{-3}$')
 if perturb:
   plt.loglog(n_long[1:],0.5*Ck*((epsilon/((R_sat**2.)*(omega_sat**3.)))**(2./3.))*(n_long[1:]**(-8./3.)), '--', color='darkgreen', linewidth=2.5)
 # -------------------Typpical scales
 if scales:
-  plt.axvline(n_beta, color='grey', linestyle='dashed', linewidth=2.5,  alpha=0.7)
-  plt.axvline(n_R, color='grey', linestyle='dashed', linewidth=2.5,  alpha=0.7)
-  plt.axvline(n_z, color='grey', linestyle='dashed', linewidth=2.5, alpha=0.7)
-  #plt.axvline(n_D, color='black', linestyle='solid', linewidth=1)
-  axB.fill_between(np.arange(n_D,n_D+100,1), 0, 1, facecolor='grey', alpha=0.4, transform=trans)
+  plt.axvline(n_beta, color='grey', linestyle='dotted', linewidth=2.5,  alpha=0.7)
+  plt.axvline(n_R, color='grey', linestyle='dotted', linewidth=2.5,  alpha=0.7)
+  plt.axvline(n_z, color='grey', linestyle='dotted', linewidth=2.5, alpha=0.7)
+  ##plt.axvline(n_D, color='black', linestyle='solid', linewidth=1)
+  #axB.fill_between(np.arange(n_D,n_D+100,1), 0, 1, facecolor='grey', alpha=0.4, transform=trans)
 # -------------------numerical spectra
 #plt.loglog(n,Eno[:,2]/((omega_sat*R_sat)**2.), '-', color='red', linewidth=1.5) # PSD de m=0, 
 #plt.loglog(n,En[:,2]/((omega_sat*R_sat)**2.), '-', color='black', linewidth=1.5) # PSD des m/=0
 #
-
-plt.loglog(n[:-1],_Eno_[:-1,-AST4]/((omega_sat*R_sat)**2.), '-', color='darkred', linewidth=2, label="zonal (m=0)") # PSD des m/=0
-#
-plt.loglog(n[:-1],_En_[:-1,-AST4]/((omega_sat*R_sat)**2.), '-', color='black', linewidth=2, label="residual (m>0)") # PSD des m/=0
 
 #####################"
 if perturb:
