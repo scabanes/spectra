@@ -15,21 +15,19 @@ from decimal import *
 ####################################################################
 E=np.load('EE.npz')
 const=np.load('const.npz')
-n=E['n']
 _En_=E['_En_']
 _Eno_=E['_Eno_']
 _Emn_=E['_Emn_']
+_EZ_=E['_EZ_']
+_ET_=E['_ET_']
+_ER_=E['_ER_']
 R_sat=const['R_sat']
-beta_sat=const['beta_sat']
-n_beta=const['n_beta']
-n_R=const['n_R']
-n_z=const['n_z']
-n_D=const['n_D']
-n_long=const['n_long']
 omega_sat=const['omega_sat']
 Ck=const['Ck']
 Cz=const['Cz']
-epsilon = 0.00006
+NBV = const['NBV']
+H = const['H']
+
 #################################
 f = open('filePTS.zono.temp', "r")
 print f.readline()
@@ -73,6 +71,68 @@ else:
         print 'erreur dans filePTS.zono.temp'
 print 'Loaded.....'
 print _En_.shape
+
+####################################################################
+#                   COMPUTATIONS...
+####################################################################
+
+######################################################################
+# To make quantities non-dimensional we use [omega] = 1/s as unity  
+# for time and [R_sat] = m as length unity.
+n = np.arange(0.,N,1.)
+n_long = np.arange(0.,N+500,1.)
+#######################
+## calculate epsilon ##
+#######################
+nnn = 150 # to align the line
+value = _En_[nnn,-AST4]/((omega_sat*R_sat)**2.)
+fac = Ck*(n_long[nnn]**(-5./3.))
+norm = ((R_sat**2.)*(omega_sat**3.))**(2./3.)
+fac = fac / norm
+epsilon = value/fac
+epsilon = epsilon**(3./2.)
+print "EPSILON",epsilon
+#######################
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+# Constant beta and coriolis parameter f varries in latitude. Here a
+# typical value is choosen at mid-latitude pi/4.
+angle = np.pi/4.
+beta_sat = (2*omega_sat*np.cos(angle))/R_sat
+f = 2*omega_sat*np.sin(angle)
+URMS = 29.
+# ---------------------------------------------------------------------
+#               Numerical scaling results:
+# Indexes n_R is the Rhines scale; n_beta is the transition scale in
+# the zonostrophic spectra; n_z is the scale at which the flow beco-
+# mes isotropic; n_D is the first Rossby deformation radius. R_beta
+# is the zonostrophic index giving the extension on the zonostrophic
+# inertial range.
+# ---------------------------------------------------------------------
+print '================================================================'
+print '-------------------- SCALES ------------------------------------'
+n_R = R_sat * (beta_sat/(2*URMS))**0.5 # rad/m
+n_beta = ((Cz/Ck)**(3./10.))*((((beta_sat/beta_sat)**3.)/(epsilon/((R_sat**2.)*(omega_sat**3.))))**(1./5.))
+n_z = n_beta*(2.*n_beta)**(3./7.)
+L_D = (NBV*H)/(np.pi*f)
+n_D = (np.pi*R_sat)/L_D
+R_beta = n_beta/n_R
+print 'URMS =',URMS
+print 'n_beta =', n_beta
+print 'n_R = ', n_R
+print 'n_z =', n_z
+print 'R_beta = ', R_beta
+print '----------------------'
+print '----------------------'
+gamma = (3./4.)*((10.*Cz)**(-5./6.))*R_beta**(10./3.)
+if _EZ_ is not None:
+  print 'theory & numerics'
+  print 'zmf =',gamma/(1.+gamma), '&', _EZ_/_ET_
+  print 'theory & numerics'
+  print 'nzmf =',1./(1.+gamma), '&', _ER_/_ET_
+  print '-----------------------------------------------------------------'
+print '####################################################################'
+
+
 ####################################################################
 #			Averaged spectra
 ####################################################################

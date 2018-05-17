@@ -191,58 +191,11 @@ for itg in range(0, NT):
 ####################################################################
 ####################################################################
 
-#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-#===================================================================
-# 			PLOT SPECTRA
-#===================================================================
-#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-# To make quantities non-dimensional we use [omega] = 1/s as unity  
-# for time and [R_sat] = m as length unity.
-n = np.arange(0.,N,1.)
-n_long = np.arange(0.,N+500,1.)
-# Constant beta and coriolis parameter f varries in latitude. Here a
-# typical value is choosen at mid-latitude pi/4.
-angle = np.pi/4.
-beta_sat = (2*omega_sat*np.cos(angle))/R_sat
-f = 2*omega_sat*np.sin(angle)
-URMS = 29.
-# ---------------------------------------------------------------------
-#	       	Numerical scaling results:
-# Indexes n_R is the Rhines scale; n_beta is the transition scale in
-# the zonostrophic spectra; n_z is the scale at which the flow beco-
-# mes isotropic; n_D is the first Rossby deformation radius. R_beta
-# is the zonostrophic index giving the extension on the zonostrophic
-# inertial range.
-# ---------------------------------------------------------------------
-print '================================================================'
-print '-------------------- SCALES ------------------------------------'
-n_R = R_sat * (beta_sat/(2*URMS))**0.5 # rad/m
-n_beta = ((Cz/Ck)**(3./10.))*((((beta_sat/beta_sat)**3.)/(epsilon/((R_sat**2.)*(omega_sat**3.))))**(1./5.))
-n_z = n_beta*(2.*n_beta)**(3./7.)
-L_D = (NBV*H)/(np.pi*f)
-n_D = (np.pi*R_sat)/L_D
-R_beta = n_beta/n_R
-print 'URMS =',URMS
-print 'n_beta =', n_beta 
-print 'n_R = ', n_R
-print 'n_z =', n_z
-print 'R_beta = ', R_beta
-print '----------------------'
-print '----------------------'
-gamma = (3./4.)*((10.*Cz)**(-5./6.))*R_beta**(10./3.)
-if _EZ_ is not None:
-  print 'theory & numerics'
-  print 'zmf =',gamma/(1.+gamma), '&', _EZ_/_ET_
-  print 'theory & numerics'
-  print 'nzmf =',1./(1.+gamma), '&', _ER_/_ET_
-  print '-----------------------------------------------------------------'
-print '####################################################################'
-
 ####################################################################
 #                       Save spectra
 ####################################################################
 
-np.savez('const.npz',R_sat=R_sat,beta_sat=beta_sat,n_beta=n_beta,n_R=n_R,n_z=n_z,n_D=n_D,n_long=n_long,omega_sat=omega_sat,Ck=Ck,Cz=Cz)
-np.savez('EE.npz',_En_=_En_,_Eno_=_Eno_,_Emn_=_Emn_,n=n,EZ=EZ,ER=ER,ET=ET)
+np.savez('const.npz',R_sat=R_sat,omega_sat=omega_sat,Ck=Ck,Cz=Cz,NBV=NBV,H=H)
+np.savez('EE.npz',_En_=_En_,_Eno_=_Eno_,_Emn_=_Emn_,EZ=EZ,ER=ER,ET=ET,_EZ_=_EZ_,_ET_=_ET_,_ER_=_ER_)
 
 print '-------- Files: const.npz & EE.npz have been saved => Use now Toplot.py to plot....'
