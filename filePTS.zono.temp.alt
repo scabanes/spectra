@@ -17,8 +17,10 @@ AST4		0			#If==0 arrayT1 not used; Othwise it defines numbers of time step to av
 ####################################################################
 omega_sat	0.000164		# Rotation rate in s-1
 R_sat		58232000		# En m
-Ck		5.			# Constant of ER(n) = Ck epsilon^2/3 n^-5/3 ;  [Ck] = non-dim    ### from literature
-epsilon		0.00000015 		# [epsilon] = m^2/s^3    ### could be determined by fitting
-Cz		0.5			# Constant of EZ(n) = Cz beta^2 n^-5 ;  [Cz] = non-dim   ## could be determined by fitting 
+Ck		5.			# Constant of ER(n) = Ck epsilon^2/3 n^-5/3 ;  [Ck] = non-dim ### from literature (5e-6)
+epsilon		0.00000015 		# [epsilon] = m^2/s^3    ### could be determined by fitting (linear regression)
+Cz		0.5			# Constant of EZ(n) = Cz beta^2 n^-5 ;  [Cz] = non-dim   ## possible to change (fitting?)
 H-atm		59000			# Hauteur l'atmosphere de Saturne. [H] = m
 N		0.01			# Frequence typique de Brunt–Väisälä. [N] = s-1
+
+#epsilon         1.e-5
