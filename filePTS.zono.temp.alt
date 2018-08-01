@@ -8,7 +8,7 @@ ArrayT1		0	49
 ArrayT2		25	499
 ArrayT3		500	600
 ArrayT4		1000	1100
-AST1		50			#If==0 arrayT1 not used; Othwise it defines numbers of time step to average. 
+AST1		49			#If==0 arrayT1 not used; Othwise it defines numbers of time step to average. 
 AST2		0			#If==0 arrayT1 not used; Othwise it defines numbers of time step to average. 
 AST3		0			#If==0 arrayT1 not used; Othwise it defines numbers of time step to average. 
 AST4		0			#If==0 arrayT1 not used; Othwise it defines numbers of time step to average. 
